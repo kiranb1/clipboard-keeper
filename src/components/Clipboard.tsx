@@ -2,8 +2,8 @@ import ClipboardItem from "./ClipboardItem";
 import { Heading, Center, Container } from "@chakra-ui/react";
 
 export default function Clipboard() {
-  const clipboardItems = [...Array(10)].map((e, i) => (
-    <ClipboardItem key={i} />
+  const clipboardItems = [...Array(10)].map((e, i: number) => (
+    <ClipboardItem />
   ));
 
   return (
@@ -17,3 +17,7 @@ export default function Clipboard() {
     </Container>
   );
 }
+
+type ClipboardProps = {
+  ClipboardItem: React.ReactNode;
+};
