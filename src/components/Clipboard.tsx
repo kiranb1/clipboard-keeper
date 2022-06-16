@@ -6,18 +6,24 @@ export default function Clipboard() {
   const [items, setItems] = useState<string[]>([]);
 
   useEffect(() => {
-    setItems(JSON.parse(localStorage.getItem("items") || "{}"));
+    const itemsStoredLocally = JSON.parse(
+      localStorage.getItem("items") || "{}"
+    );
+
+    setItems(itemsStoredLocally);
+
     if (items) {
+      console.log("items are ", items);
       setItems(items);
     }
-    console.log("items are", items);
-  }, []);
-
-  const storeItems = (item: string) => {
-    setItems((items) => [...items, item]);
-    console.log("new items ", items);
     // Save to local storage
     localStorage.setItem("items", JSON.stringify(items));
+  }, [items]);
+
+  const storeItems = (item: string) => {
+    if (!items.includes(item)) {
+      setItems((items) => [...items, item]);
+    }
     // Copy to clipboard
     navigator.clipboard.writeText(item);
   };

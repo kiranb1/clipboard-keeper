@@ -1,13 +1,13 @@
 import { useFormik } from "formik";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Input, Flex, IconButton } from "@chakra-ui/react";
 import { FaClipboardCheck } from "react-icons/fa";
 
-export default function ClipboardItem(
-  uploadItem: (itemToStore: string) => void
-) {
-  const [items, setItems] = useState<string[]>([]);
+interface ClipboardItemProps {
+  uploadItem: (itemToStore: string) => void;
+}
 
+export default function ClipboardItem({ uploadItem }: ClipboardItemProps) {
   const formik = useFormik({
     initialValues: {
       copyText: "",
@@ -15,12 +15,6 @@ export default function ClipboardItem(
     onSubmit: (values) => {
       uploadItem(values.copyText);
     },
-
-    // TODO load local storage on page reload
-    // TODO change input text weight/size
-    // TODO change button to text button that changes from copy to copied. Add Timeout to return to copy text after 10 seconds
-    // TODO add description field
-    // TODO deploy to git pages
   });
 
   return (
