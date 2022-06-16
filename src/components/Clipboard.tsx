@@ -3,7 +3,9 @@ import React, { useState, useEffect } from "react";
 import { Heading, Center, Container } from "@chakra-ui/react";
 
 export default function Clipboard() {
-  const [items, setItems] = useState<string[]>([]);
+  const [items, setItems] = useState<string[]>(
+    JSON.parse(localStorage.getItem("items") || "[]")
+  );
 
   useEffect(() => {
     const itemsStoredLocally = JSON.parse(
@@ -13,8 +15,10 @@ export default function Clipboard() {
     setItems(itemsStoredLocally);
 
     if (items) {
+      // items is empty to begin with
       console.log("items are ", items);
       setItems(items);
+      console.log("hello ", JSON.parse(localStorage.getItem("items") || "{}"));
     }
     // Save to local storage
     localStorage.setItem("items", JSON.stringify(items));
