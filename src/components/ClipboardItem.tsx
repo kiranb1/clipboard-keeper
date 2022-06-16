@@ -29,9 +29,12 @@ export default function ClipboardItem({
         <Flex mb="3">
           <Input
             name="copyText"
+            fontWeight="bold"
+            fontSize="lg"
             onChange={formik.handleChange}
             value={formik.values.copyText}
             placeholder="Enter text"
+            _placeholder={{ fontWeight: "normal" }}
           />
           <IconButton
             type="submit"
