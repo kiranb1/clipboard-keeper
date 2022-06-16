@@ -8,17 +8,9 @@ export default function Clipboard() {
   );
 
   useEffect(() => {
-    const itemsStoredLocally = JSON.parse(
-      localStorage.getItem("items") || "{}"
-    );
-
-    setItems(itemsStoredLocally);
-
     if (items) {
       // items is empty to begin with
-      console.log("items are ", items);
       setItems(items);
-      console.log("hello ", JSON.parse(localStorage.getItem("items") || "{}"));
     }
     // Save to local storage
     localStorage.setItem("items", JSON.stringify(items));
