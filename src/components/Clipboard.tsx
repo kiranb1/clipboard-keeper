@@ -1,6 +1,6 @@
 import ClipboardItem from "./ClipboardItem";
 import React, { useState, useEffect } from "react";
-import { Heading, Center, Container } from "@chakra-ui/react";
+import { Heading, Center, Container, Button } from "@chakra-ui/react";
 
 export default function Clipboard() {
   const [items, setItems] = useState<string[]>(
@@ -9,23 +9,34 @@ export default function Clipboard() {
 
   useEffect(() => {
     if (items) {
-      // items is empty to begin with
       setItems(items);
     }
     // Save to local storage
     localStorage.setItem("items", JSON.stringify(items));
   }, [items]);
 
-  const storeItems = (item: string) => {
+  const storeItems = (item: string, id: number) => {
+    // Store item if it doesn't exist already in items
     if (!items.includes(item)) {
       setItems((items) => [...items, item]);
     }
+
+    if (items[id] !== undefined) {
+      // The item with passed id already has a saved value
+      // Replace this value with the new one
+      const updatedItems = items.map((listItem, index) => {
+        return index === id ? item : listItem;
+      });
+
+      setItems(updatedItems);
+    }
+
     // Copy to clipboard
     navigator.clipboard.writeText(item);
   };
 
   const clipboardItems = [...Array(10)].map((e, i: number) => (
-    <ClipboardItem uploadItem={storeItems} />
+    <ClipboardItem uploadItem={storeItems} storedItem={items[i]} id={i} />
   ));
 
   return (
@@ -35,6 +46,11 @@ export default function Clipboard() {
           <Heading>Clipboard keeper</Heading>
         </Center>
         {clipboardItems}
+        {/* //TODO */}
+        {/* <Button colorScheme="green" mr="3">
+          Save all
+        </Button>
+        <Button colorScheme="red">Delete all</Button> */}
       </>
     </Container>
   );

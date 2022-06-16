@@ -4,16 +4,22 @@ import { Input, Flex, IconButton } from "@chakra-ui/react";
 import { FaClipboardCheck } from "react-icons/fa";
 
 interface ClipboardItemProps {
-  uploadItem: (itemToStore: string) => void;
+  uploadItem: (itemToStore: string, id: number) => void;
+  storedItem: string;
+  id: number;
 }
 
-export default function ClipboardItem({ uploadItem }: ClipboardItemProps) {
+export default function ClipboardItem({
+  uploadItem,
+  storedItem,
+  id,
+}: ClipboardItemProps) {
   const formik = useFormik({
     initialValues: {
-      copyText: "",
+      copyText: storedItem || "",
     },
     onSubmit: (values) => {
-      uploadItem(values.copyText);
+      uploadItem(values.copyText, id);
     },
   });
 
