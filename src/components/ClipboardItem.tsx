@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
-import React from "react";
 import { Input, Flex, IconButton } from "@chakra-ui/react";
 import { FaClipboardCheck } from "react-icons/fa";
+import { useEffect } from "react";
 
 interface ClipboardItemProps {
   uploadItem: (itemToStore: string, id: number) => void;
@@ -14,6 +14,11 @@ export default function ClipboardItem({
   storedItem,
   id,
 }: ClipboardItemProps) {
+  useEffect(() => {
+    // Your Code
+    console.log("hello ", storedItem);
+  }, [storedItem]);
+
   const formik = useFormik({
     initialValues: {
       copyText: storedItem || "",

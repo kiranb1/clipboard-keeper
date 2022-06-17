@@ -35,8 +35,19 @@ export default function Clipboard() {
     navigator.clipboard.writeText(item);
   };
 
+  //TODO complete fn
+  const deleteAllText = () => {
+    console.log("delete all clicked");
+    setItems([]);
+  };
+
   const clipboardItems = [...Array(10)].map((e, i: number) => (
-    <ClipboardItem uploadItem={storeItems} storedItem={items[i]} id={i} />
+    <ClipboardItem
+      key={i}
+      uploadItem={storeItems}
+      storedItem={items[i]}
+      id={i}
+    />
   ));
 
   return (
@@ -49,8 +60,10 @@ export default function Clipboard() {
         {/* //TODO */}
         {/* <Button colorScheme="green" mr="3">
           Save all
+        </Button> */}
+        <Button onClick={deleteAllText} colorScheme="red">
+          Delete all
         </Button>
-        <Button colorScheme="red">Delete all</Button> */}
       </>
     </Container>
   );
