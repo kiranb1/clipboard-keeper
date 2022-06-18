@@ -1,5 +1,5 @@
-import { useFormik } from "formik";
-import { Input, Flex, IconButton } from "@chakra-ui/react";
+import { useForm } from "react-hook-form";
+import { Input, Flex, IconButton, FormControl } from "@chakra-ui/react";
 import { FaClipboardCheck } from "react-icons/fa";
 import { useEffect } from "react";
 
@@ -14,40 +14,37 @@ export default function ClipboardItem({
   storedItem,
   id,
 }: ClipboardItemProps) {
-  useEffect(() => {
-    // Your Code
-    console.log("hello ", storedItem);
-  }, [storedItem]);
+  const { handleSubmit, register, reset } = useForm();
 
-  const formik = useFormik({
-    initialValues: {
-      copyText: storedItem || "",
-    },
-    onSubmit: (values) => {
-      uploadItem(values.copyText, id);
-    },
-  });
+  function onSubmit(values: any) {
+    uploadItem(values.copyText, id);
+  }
+
+  useEffect(() => {
+    reset({ copyText: storedItem });
+  }, [storedItem]);
 
   return (
     <>
-      <form onSubmit={formik.handleSubmit}>
-        <Flex mb="3">
-          <Input
-            name="copyText"
-            fontWeight="bold"
-            fontSize="lg"
-            onChange={formik.handleChange}
-            value={formik.values.copyText}
-            placeholder="Enter text"
-            _placeholder={{ fontWeight: "normal" }}
-          />
-          <IconButton
-            type="submit"
-            aria-label="Copy text"
-            icon={<FaClipboardCheck />}
-            ml="3"
-          />
-        </Flex>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <FormControl>
+          <Flex mb="3">
+            <Input
+              id="copyText"
+              fontWeight="bold"
+              fontSize="lg"
+              {...register("copyText")}
+              placeholder="Enter text"
+              _placeholder={{ fontWeight: "normal" }}
+            />
+            <IconButton
+              type="submit"
+              aria-label="Copy text"
+              icon={<FaClipboardCheck />}
+              ml="3"
+            />
+          </Flex>
+        </FormControl>
       </form>
     </>
   );

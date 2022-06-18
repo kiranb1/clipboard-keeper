@@ -35,9 +35,7 @@ export default function Clipboard() {
     navigator.clipboard.writeText(item);
   };
 
-  //TODO complete fn
   const deleteAllText = () => {
-    console.log("delete all clicked");
     setItems([]);
   };
 
@@ -45,7 +43,7 @@ export default function Clipboard() {
     <ClipboardItem
       key={i}
       uploadItem={storeItems}
-      storedItem={items[i]}
+      storedItem={items[i] || ""}
       id={i}
     />
   ));
