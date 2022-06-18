@@ -42,6 +42,7 @@ export default function ClipboardItem({
         <FormControl>
           <Flex mb="3">
             <Input
+              variant="flushed"
               color="gray.600"
               id="copyText"
               fontWeight="bold"
