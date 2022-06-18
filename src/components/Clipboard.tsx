@@ -1,5 +1,5 @@
 import ClipboardItem from "./ClipboardItem";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Heading, Center, Container, Button } from "@chakra-ui/react";
 
 export default function Clipboard() {

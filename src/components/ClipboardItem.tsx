@@ -28,6 +28,7 @@ export default function ClipboardItem({
 
   useEffect(() => {
     reset({ copyText: storedItem });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [storedItem]);
 
   return (
@@ -36,6 +37,7 @@ export default function ClipboardItem({
         <FormControl>
           <Flex mb="3">
             <Input
+              color="gray.600"
               id="copyText"
               fontWeight="bold"
               fontSize="lg"
