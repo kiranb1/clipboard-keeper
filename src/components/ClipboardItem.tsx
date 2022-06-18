@@ -4,21 +4,27 @@ import { FaClipboardCheck } from "react-icons/fa";
 import { useEffect } from "react";
 
 interface ClipboardItemProps {
-  uploadItem: (itemToStore: string, id: number) => void;
+  storeItem: (itemToStore: string, id: number) => void;
+  storeAndCopyItems: (itemToStore: string, id: number) => void;
   storedItem: string;
   id: number;
 }
 
 export default function ClipboardItem({
-  uploadItem,
+  storeAndCopyItems,
   storedItem,
+  storeItem,
   id,
 }: ClipboardItemProps) {
   const { handleSubmit, register, reset } = useForm();
 
-  function onSubmit(values: any) {
-    uploadItem(values.copyText, id);
-  }
+  const onSubmit = (values: any) => {
+    storeAndCopyItems(values.copyText, id);
+  };
+
+  const saveInput = (e: React.FormEvent<HTMLInputElement>) => {
+    storeItem(e.currentTarget.value, id);
+  };
 
   useEffect(() => {
     reset({ copyText: storedItem });
@@ -33,7 +39,7 @@ export default function ClipboardItem({
               id="copyText"
               fontWeight="bold"
               fontSize="lg"
-              {...register("copyText")}
+              {...register("copyText", { onChange: (e) => saveInput(e) })}
               placeholder="Enter text"
               _placeholder={{ fontWeight: "normal" }}
             />

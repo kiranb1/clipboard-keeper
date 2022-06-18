@@ -11,11 +11,17 @@ export default function Clipboard() {
     if (items) {
       setItems(items);
     }
-    // Save to local storage
-    localStorage.setItem("items", JSON.stringify(items));
   }, [items]);
 
-  const storeItems = (item: string, id: number) => {
+  const storeAndCopyItems = (item: string, id: number) => {
+    storeItem(item, id);
+    localStorage.setItem("items", JSON.stringify(items));
+
+    // Copy to clipboard
+    navigator.clipboard.writeText(item);
+  };
+
+  const storeItem = (item: string, id: number) => {
     // Store item if it doesn't exist already in items
     if (!items.includes(item)) {
       setItems((items) => [...items, item]);
@@ -30,19 +36,23 @@ export default function Clipboard() {
 
       setItems(updatedItems);
     }
-
-    // Copy to clipboard
-    navigator.clipboard.writeText(item);
   };
 
-  const deleteAllText = () => {
+  const deleteAllItems = () => {
     setItems([]);
+    localStorage.clear();
+  };
+
+  const saveAllText = () => {
+    // Save to local storage
+    localStorage.setItem("items", JSON.stringify(items));
   };
 
   const clipboardItems = [...Array(10)].map((e, i: number) => (
     <ClipboardItem
       key={i}
-      uploadItem={storeItems}
+      storeAndCopyItems={storeAndCopyItems}
+      storeItem={storeItem}
       storedItem={items[i] || ""}
       id={i}
     />
@@ -55,11 +65,10 @@ export default function Clipboard() {
           <Heading>Clipboard keeper</Heading>
         </Center>
         {clipboardItems}
-        {/* //TODO */}
-        {/* <Button colorScheme="green" mr="3">
+        <Button onClick={saveAllText} colorScheme="green" mr="3">
           Save all
-        </Button> */}
-        <Button onClick={deleteAllText} colorScheme="red">
+        </Button>
+        <Button onClick={deleteAllItems} colorScheme="red">
           Delete all
         </Button>
       </>
