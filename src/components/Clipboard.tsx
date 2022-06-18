@@ -7,12 +7,6 @@ export default function Clipboard() {
     JSON.parse(localStorage.getItem("items") || "[]")
   );
 
-  useEffect(() => {
-    if (items) {
-      setItems(items);
-    }
-  }, [items]);
-
   const storeAndCopyItems = (item: string, id: number) => {
     storeItem(item, id);
     localStorage.setItem("items", JSON.stringify(items));
