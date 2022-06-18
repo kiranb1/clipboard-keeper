@@ -1,4 +1,3 @@
-import "./App.css";
 import Clipboard from "./components/Clipboard";
 
 function App() {
