@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form";
-import { Input, Flex, IconButton, FormControl } from "@chakra-ui/react";
-import { FaClipboardCheck } from "react-icons/fa";
-import { useEffect } from "react";
+import { Input, Flex, Button, FormControl } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 
 interface ClipboardItemProps {
   storeItem: (itemToStore: string, id: number) => void;
@@ -17,8 +16,14 @@ export default function ClipboardItem({
   id,
 }: ClipboardItemProps) {
   const { handleSubmit, register, reset } = useForm();
+  const [buttonText, setButtonText] = useState("Copy");
 
   const onSubmit = (values: any) => {
+    // Update button text to 'copied' for 1.2 secs only
+    setButtonText("Copied");
+    setTimeout(() => {
+      setButtonText("Copy");
+    }, 1200);
     storeAndCopyItems(values.copyText, id);
   };
 
@@ -45,12 +50,15 @@ export default function ClipboardItem({
               placeholder="Enter text"
               _placeholder={{ fontWeight: "normal" }}
             />
-            <IconButton
+            <Button
               type="submit"
-              aria-label="Copy text"
-              icon={<FaClipboardCheck />}
+              fontSize="sm"
               ml="3"
-            />
+              aria-label="Copy text"
+              colorScheme="blue"
+            >
+              {buttonText}
+            </Button>
           </Flex>
         </FormControl>
       </form>

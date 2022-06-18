@@ -59,10 +59,10 @@ export default function Clipboard() {
           <Heading>Clipboard keeper</Heading>
         </Center>
         {clipboardItems}
-        <Button onClick={saveAllText} colorScheme="green" mr="3">
+        <Button onClick={saveAllText} colorScheme="green" mr="3" fontSize="sm">
           Save all
         </Button>
-        <Button onClick={deleteAllItems} colorScheme="red">
+        <Button onClick={deleteAllItems} colorScheme="red" fontSize="sm">
           Delete all
         </Button>
       </>
