@@ -12,3 +12,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 - Store up to 10 clipboard items
 - Save all clipboard items
 - Delete all clipboard items
+
+### Use app
+
+Visit: https://kiranb1.github.io/clipboard-keeper/
